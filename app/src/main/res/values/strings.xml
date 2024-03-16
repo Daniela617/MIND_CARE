@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">mind_care_project</string>
+    <string name="username_placeholder">Ingrese su nombre de usuario</string>
 </resources>

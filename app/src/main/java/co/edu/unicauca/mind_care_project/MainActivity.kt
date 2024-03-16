@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -21,6 +22,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -54,6 +56,7 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Create
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.ui.res.stringResource
 import co.edu.unicauca.mind_care_project.ui.theme.Mind_care_projectTheme
 
 class MainActivity : ComponentActivity() {
@@ -73,7 +76,12 @@ fun App() {
     NavHost(navController, startDestination = "firstScreen") {
         composable("firstScreen") { firstScreen(navController) }
         composable("secondScreen") { secondScreen(navController) }
+        composable("thirdScreen") { thirdScreen(navController) }
     }
+}
+
+fun thirdScreen(navController: NavController) {
+
 }
 
 @Composable
@@ -93,7 +101,7 @@ fun firstScreen(navController: NavController) {
             horizontalAlignment = Alignment.CenterHorizontally, // Centra horizontalmente los elementos de la columna
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 100.dp) // Ajusta este valor para mover el contenido hacia abajo desde el borde superior
+                .padding(top = 100.dp)
         ) {
             // Imagen
             Image(
@@ -157,7 +165,7 @@ fun secondScreen(navController: NavController) {
         colors = listOf(Color(0xFF8E66B8), Color(0xFF0B5884))
     )
 
-    var text =""
+
 
     Box(
         modifier = Modifier
@@ -210,7 +218,7 @@ fun secondScreen(navController: NavController) {
                     horizontalAlignment = Alignment.CenterHorizontally, // Centra horizontalmente los elementos de la columna
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(top = 40.dp) // Ajusta este valor para mover el contenido hacia abajo desde el borde superior
+                        .padding(top = 40.dp)
                 ) {
 
                     Text(
@@ -231,24 +239,50 @@ fun secondScreen(navController: NavController) {
                         modifier = Modifier.padding(start = 40.dp, end = 40.dp, bottom = 140.dp)
 
                     )
+                    Row(){
+                        TextField(
+                            value = "",
+                            onValueChange = {},
 
+                            colors = TextFieldDefaults.colors(
+                                unfocusedContainerColor = Color.White,
+                                focusedContainerColor = Color.White,
+                                cursorColor = Color.Transparent,
+                            ),
+                            placeholder = {
+                                Text(stringResource(R.string.username_placeholder))
+                            },
+                            modifier = Modifier
+                                .heightIn(30.dp),
+                            shape = RoundedCornerShape(40.dp),
 
-                    Row (
-                        modifier = Modifier.fillMaxWidth(),
+                        )
 
-                    ){
+                       /* Spacer(modifier = Modifier.height(16.dp))
+                        Button(
+                            onClick = {
+                                 navController.navigate("firstScreen")
+                                },
+                            shape = CircleShape,
+                            modifier = Modifier
+                                .size(53.dp)
+
+                        ) {
+                            /*Icon(
+
+                            )*/
+                        }*/
 
                     }
+
+
+
+
                 }
             }
 
+
         }
-
-
-
-
-
-
 
     }
 
