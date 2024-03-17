@@ -54,7 +54,9 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Create
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.ui.tooling.preview.Preview
 import co.edu.unicauca.mind_care_project.ui.theme.Mind_care_projectTheme
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -70,9 +72,10 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun App() {
     val navController = rememberNavController()
-    NavHost(navController, startDestination = "firstScreen") {
-        composable("firstScreen") { firstScreen(navController) }
-        composable("secondScreen") { secondScreen(navController) }
+    NavHost(navController, startDestination = "thirdScreen") {
+        composable("thirdScreen") { thirdScreen(navController) }
+        //composable("secondScreen") { secondScreen(navController) }
+
     }
 }
 
@@ -252,4 +255,189 @@ fun secondScreen(navController: NavController) {
 
     }
 
+}
+@Composable
+fun thirdScreen(navController: NavController) {
+    val gradiente = Brush.verticalGradient(
+        colors = listOf(Color(0xFF8E66B8), Color(0xFF0B5884))
+    )
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(brush = gradiente)
+    ) {
+        Text(
+            text = "Personalicemos tu\nespacio",
+            modifier = Modifier
+                .padding(13.dp)
+                .fillMaxWidth(),
+                color = Color.White,
+                fontSize = 30.sp,
+                textAlign = TextAlign.Center
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceAround){
+            Column(
+                modifier = Modifier
+                    .background(Color.White, RoundedCornerShape(8.dp))
+                    .padding(horizontal = 24.dp, vertical = 32.dp)
+                    . size(120.dp, 45.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center,
+
+
+            ) {
+                Text(
+                    text = "Ansiedad",
+                    color = Color(0xFF8E66B8),
+                        fontSize = 23.sp,
+                )
+            }
+            Column(
+                modifier = Modifier
+                    .background(Color.White, RoundedCornerShape(8.dp))
+                    .padding(horizontal = 24.dp, vertical = 32.dp)
+                    . size(120.dp, 45.dp),
+                     horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center,
+            ) {
+                Text(
+                    text = "Depresión",
+                    color = Color(0xFF8E66B8),
+                    fontSize = 23.sp,
+                )
+            }
+        }
+        Spacer(modifier = Modifier.height(40.dp))
+        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceAround){
+            Column(
+                modifier = Modifier
+                    .background(Color.White, RoundedCornerShape(8.dp))
+                    .padding(horizontal = 24.dp, vertical = 32.dp)
+                    . size(120.dp, 45.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center,
+
+
+                ) {
+                Text(
+                    text = "Relaciones",
+                    color = Color(0xFF8E66B8),
+                    fontSize = 23.sp,
+                )
+            }
+            Column(
+                modifier = Modifier
+                    .background(Color.White, RoundedCornerShape(8.dp))
+                    .padding(horizontal = 24.dp, vertical = 32.dp)
+                    . size(120.dp, 45.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center,
+            ) {
+                Text(
+                    text = "Soledad",
+                    color = Color(0xFF8E66B8),
+                    fontSize = 23.sp,
+                )
+            }
+        }
+        Spacer(modifier = Modifier.height(40.dp))
+        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceAround){
+            Column(
+                modifier = Modifier
+                    .background(Color.White, RoundedCornerShape(8.dp))
+                    .padding(horizontal = 24.dp, vertical = 32.dp)
+                    . size(120.dp, 45.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center,
+
+
+                ) {
+                Text(
+                    text = "Traumas",
+                    color = Color(0xFF8E66B8),
+                    fontSize = 23.sp,
+                )
+            }
+            Column(
+                modifier = Modifier
+                    .background(Color.White, RoundedCornerShape(8.dp))
+                    .padding(horizontal = 24.dp, vertical = 32.dp)
+                    . size(120.dp, 45.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center,
+            ) {
+                Text(
+                    text = "Embarazo",
+                    color = Color(0xFF8E66B8),
+                    fontSize = 23.sp,
+                )
+            }
+        }
+        Spacer(modifier = Modifier.height(40.dp))
+        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceAround){
+            Column(
+                modifier = Modifier
+                    .background(Color.White, RoundedCornerShape(8.dp))
+                    .padding(horizontal = 24.dp, vertical = 32.dp)
+                    . size(120.dp, 45.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center,
+
+
+                ) {
+                Text(
+                    text = "Motivación",
+                    color = Color(0xFF8E66B8),
+                    fontSize = 23.sp,
+                )
+            }
+            Column(
+                modifier = Modifier
+                    .background(Color.White, RoundedCornerShape(8.dp))
+                    .padding(horizontal = 24.dp, vertical = 32.dp)
+                    . size(120.dp, 45.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center,
+            ) {
+                Text(
+                    text = "Insomnio",
+                    color = Color(0xFF8E66B8),
+                    fontSize = 23.sp,
+                )
+            }
+        }
+        Spacer(modifier = Modifier.height(16.dp))
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Button(
+                onClick = {},
+                colors = ButtonDefaults.buttonColors(containerColor =Color(0xFF8E66B8) ),
+                modifier = Modifier
+                    .width(300.dp)
+                    .height(50.dp),
+                    shape = RoundedCornerShape(30.dp) // Esquinas redondeadas a 8.dp
+            ) {
+                Text("COMENCEMOS",
+                    color = Color.White,
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold,
+                    textAlign = TextAlign.Center ,
+                    modifier = Modifier.padding(3.dp)
+                )
+            }
+        }
+
+        // Aquí puedes agregar el resto del contenido de tu pantalla
+    }
+
+}
+@Preview
+@Composable
+fun ThirdScreenPreview() {
+    val navController = rememberNavController()
+    thirdScreen(navController)
 }
