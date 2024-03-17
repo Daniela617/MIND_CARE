@@ -57,7 +57,6 @@ import androidx.compose.material.icons.filled.Search
 import androidx.compose.ui.tooling.preview.Preview
 import co.edu.unicauca.mind_care_project.ui.theme.Mind_care_projectTheme
 
-
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,10 +71,9 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun App() {
     val navController = rememberNavController()
-    NavHost(navController, startDestination = "thirdScreen") {
-        composable("thirdScreen") { thirdScreen(navController) }
-        //composable("secondScreen") { secondScreen(navController) }
-
+    NavHost(navController, startDestination = "firstScreen") {
+        composable("firstScreen") { firstScreen(navController) }
+        composable("secondScreen") { secondScreen(navController) }
     }
 }
 
@@ -272,9 +270,9 @@ fun thirdScreen(navController: NavController) {
             modifier = Modifier
                 .padding(13.dp)
                 .fillMaxWidth(),
-                color = Color.White,
-                fontSize = 30.sp,
-                textAlign = TextAlign.Center
+            color = Color.White,
+            fontSize = 30.sp,
+            textAlign = TextAlign.Center
         )
         Spacer(modifier = Modifier.height(16.dp))
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceAround){
@@ -283,15 +281,15 @@ fun thirdScreen(navController: NavController) {
                     .background(Color.White, RoundedCornerShape(8.dp))
                     .padding(horizontal = 24.dp, vertical = 32.dp)
                     . size(120.dp, 45.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center,
 
 
-            ) {
+                ) {
                 Text(
                     text = "Ansiedad",
                     color = Color(0xFF8E66B8),
-                        fontSize = 23.sp,
+                    fontSize = 23.sp,
                 )
             }
             Column(
@@ -299,8 +297,8 @@ fun thirdScreen(navController: NavController) {
                     .background(Color.White, RoundedCornerShape(8.dp))
                     .padding(horizontal = 24.dp, vertical = 32.dp)
                     . size(120.dp, 45.dp),
-                     horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center,
             ) {
                 Text(
                     text = "Depresión",
@@ -419,7 +417,7 @@ fun thirdScreen(navController: NavController) {
                 modifier = Modifier
                     .width(300.dp)
                     .height(50.dp),
-                    shape = RoundedCornerShape(30.dp) // Esquinas redondeadas a 8.dp
+                shape = RoundedCornerShape(30.dp) // Esquinas redondeadas a 8.dp
             ) {
                 Text("COMENCEMOS",
                     color = Color.White,
@@ -431,7 +429,7 @@ fun thirdScreen(navController: NavController) {
             }
         }
 
-        // Aquí puedes agregar el resto del contenido de tu pantalla
+
     }
 
 }
