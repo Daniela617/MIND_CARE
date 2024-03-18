@@ -21,6 +21,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -54,6 +55,7 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Create
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import co.edu.unicauca.mind_care_project.ui.theme.Mind_care_projectTheme
 
@@ -74,6 +76,7 @@ fun App() {
     NavHost(navController, startDestination = "firstScreen") {
         composable("firstScreen") { firstScreen(navController) }
         composable("secondScreen") { secondScreen(navController) }
+        composable("thirdScreen") { thirdScreen(navController) }
     }
 }
 
@@ -234,10 +237,45 @@ fun secondScreen(navController: NavController) {
                     )
 
 
-                    Row (
-                        modifier = Modifier.fillMaxWidth(),
+                    Row(
+                        modifier = Modifier
+                            .size(width = 340.dp, height = 70.dp)
+                            .background(Color.White, shape = RoundedCornerShape(40.dp))
+                            .padding(8.dp)
+                    ) {
+                        TextField(
+                                value = "",
+                                onValueChange = {},
+                                colors = TextFieldDefaults.colors(
 
-                    ){
+                                    unfocusedIndicatorColor = Color.Transparent, // Oculta el indicador cuando no está enfocado
+                                    focusedIndicatorColor = Color.Transparent, // Oculta el indicador cuando está enfocado
+                                    unfocusedContainerColor = Color.White, // Color del contenedor cuando no está enfocado
+                                    focusedContainerColor = Color.White
+                                ),
+                                placeholder = {
+                                    Text(stringResource(R.string.username_placeholder), color = Color.Gray)
+                                },
+                                modifier = Modifier
+                                    .size(width = 250.dp, height = 60.dp),
+                                    shape = RoundedCornerShape(40.dp),
+                            )
+                            Spacer(modifier = Modifier.height(16.dp))
+                                    //TODO ICON
+                            Button(onClick = {navController.navigate("thirdScreen") },
+                                shape = CircleShape,
+                                modifier = Modifier
+                                    .size(50.dp) ,
+                               colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF8E66B8)))
+                            {
+                                Icon(
+                                    painter = painterResource(id = R.drawable.back),
+                                    contentDescription = "Regresa",
+                                    modifier = Modifier.size(200.dp).padding(3.dp),
+                                    tint = Color.White
+                                )
+                            }
+                        }
 
                     }
                 }
@@ -253,7 +291,7 @@ fun secondScreen(navController: NavController) {
 
     }
 
-}
+
 @Composable
 fun thirdScreen(navController: NavController) {
     val gradiente = Brush.verticalGradient(
@@ -268,19 +306,19 @@ fun thirdScreen(navController: NavController) {
         Text(
             text = "Personalicemos tu\nespacio",
             modifier = Modifier
-                .padding(13.dp)
+                .padding(18.dp)
                 .fillMaxWidth(),
             color = Color.White,
             fontSize = 30.sp,
             textAlign = TextAlign.Center
         )
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(25.dp))
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceAround){
             Column(
                 modifier = Modifier
                     .background(Color.White, RoundedCornerShape(8.dp))
                     .padding(horizontal = 24.dp, vertical = 32.dp)
-                    . size(120.dp, 45.dp),
+                    .size(120.dp, 45.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center,
 
@@ -296,7 +334,7 @@ fun thirdScreen(navController: NavController) {
                 modifier = Modifier
                     .background(Color.White, RoundedCornerShape(8.dp))
                     .padding(horizontal = 24.dp, vertical = 32.dp)
-                    . size(120.dp, 45.dp),
+                    .size(120.dp, 45.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center,
             ) {
@@ -313,7 +351,7 @@ fun thirdScreen(navController: NavController) {
                 modifier = Modifier
                     .background(Color.White, RoundedCornerShape(8.dp))
                     .padding(horizontal = 24.dp, vertical = 32.dp)
-                    . size(120.dp, 45.dp),
+                    .size(120.dp, 45.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center,
 
@@ -329,7 +367,7 @@ fun thirdScreen(navController: NavController) {
                 modifier = Modifier
                     .background(Color.White, RoundedCornerShape(8.dp))
                     .padding(horizontal = 24.dp, vertical = 32.dp)
-                    . size(120.dp, 45.dp),
+                    .size(120.dp, 45.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center,
             ) {
@@ -346,7 +384,7 @@ fun thirdScreen(navController: NavController) {
                 modifier = Modifier
                     .background(Color.White, RoundedCornerShape(8.dp))
                     .padding(horizontal = 24.dp, vertical = 32.dp)
-                    . size(120.dp, 45.dp),
+                    .size(120.dp, 45.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center,
 
@@ -362,7 +400,7 @@ fun thirdScreen(navController: NavController) {
                 modifier = Modifier
                     .background(Color.White, RoundedCornerShape(8.dp))
                     .padding(horizontal = 24.dp, vertical = 32.dp)
-                    . size(120.dp, 45.dp),
+                    .size(120.dp, 45.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center,
             ) {
@@ -379,7 +417,7 @@ fun thirdScreen(navController: NavController) {
                 modifier = Modifier
                     .background(Color.White, RoundedCornerShape(8.dp))
                     .padding(horizontal = 24.dp, vertical = 32.dp)
-                    . size(120.dp, 45.dp),
+                    .size(120.dp, 45.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center,
 
@@ -395,7 +433,7 @@ fun thirdScreen(navController: NavController) {
                 modifier = Modifier
                     .background(Color.White, RoundedCornerShape(8.dp))
                     .padding(horizontal = 24.dp, vertical = 32.dp)
-                    . size(120.dp, 45.dp),
+                    .size(120.dp, 45.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center,
             ) {
