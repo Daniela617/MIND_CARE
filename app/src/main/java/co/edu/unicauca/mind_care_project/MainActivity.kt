@@ -17,11 +17,11 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -33,7 +33,6 @@ import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -48,15 +47,10 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Create
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Divider
+import androidx.compose.runtime.remember
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -486,6 +480,7 @@ fun FourScreen(navController: NavController){
         colors = listOf(Color(0xFF8E66B8), Color(0xFF0B5884))
     )
     val Purple = Color(0xFF9C27B0)
+    val userInfoList = UsersMessages.getUserInfo()
     Row(modifier = Modifier.padding(all = 8.dp)) {
         Column(
             modifier = Modifier
@@ -551,171 +546,77 @@ fun FourScreen(navController: NavController){
                     Divider(color = Color.White, thickness = 1.dp)
                 }
             }
-            Row(modifier = Modifier.padding(all = 10.dp),verticalAlignment = Alignment.CenterVertically) {
-                Image(
-                    painter = painterResource(R.drawable.avatar2),
-                    contentDescription = "Avatar2",
-                    modifier = Modifier
-                        // Set image size to 40 dp
-                        .size(50.dp)
-                        // Clip image to be shaped as a circle
-                        .clip(CircleShape)
-                        .border(2.5.dp, MaterialTheme.colorScheme.inversePrimary, CircleShape)
-                )
-                Spacer(modifier = Modifier.width(8.dp))
+
+            MultipleAvatars(userInfoList = userInfoList)
+        }
+
+    }
+}
+@Composable
+fun AvatarRow(userInfo:UserInfo) {
+    val Purple = Color(0xFF9C27B0)
+
+    Row(
+        modifier = Modifier.padding(all = 10.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Image(
+            painter = painterResource(userInfo.imageId),
+            contentDescription = "Avatar",
+            modifier = Modifier
+                .size(50.dp)
+                .clip(CircleShape)
+                .border(2.5.dp, MaterialTheme.colorScheme.inversePrimary, CircleShape)
+        )
+        Spacer(modifier = Modifier.width(8.dp))
+        Text(
+            text = userInfo.user,
+            color = Color.White,
+            fontSize = 25.sp,
+            fontFamily = FontFamily(Font(R.font.nunito_variable_font_wght)),
+            textAlign = TextAlign.Center
+        )
+    }
+
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceAround
+    ) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(15.dp)
+                .background(Color.White, RoundedCornerShape(8.dp))
+                .padding(16.dp)
+        ) {
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                verticalArrangement = Arrangement.Bottom
+            ) {
                 Text(
-                    text = "VisitanteX",
-                    color = Color.White,
-                    fontSize = 25.sp,
+                    text = userInfo.contentText,
+                    color = Purple,
+                    fontSize = 10.sp,
                     fontFamily = FontFamily(Font(R.font.nunito_variable_font_wght)),
-                    textAlign = TextAlign.Center,
-
-                    )
-
-            }
-            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceAround){
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(15.dp)
-                        .background(Color.White, RoundedCornerShape(8.dp))
-                        .padding(16.dp)
-                ) {
-                    Column(
-                        modifier = Modifier.fillMaxWidth(),
-                        verticalArrangement = Arrangement.Bottom,
-
-                        ) {
-                        Text(
-
-                            text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac odio nec turpis pulvinar facilisis. Proin quis tortor a velit sollicitudin eleifend. Nullam consectetur arcu at mi ullamcorper",
-                            color = Purple,
-                            fontSize = 10.sp,
-                            fontFamily = FontFamily(Font(R.font.nunito_variable_font_wght)),
-                            textAlign = TextAlign.Justify
-                        )
-                        Spacer(modifier = Modifier.height(8.dp))
-                        Image(
-                            painter = painterResource(R.drawable.me_gusta),
-                            contentDescription = "like",
-                            modifier = Modifier
-                                // Set image size to 40 dp
-                                .size(10.dp)
-                        )
-                    }
-                }
-            }
-            Row(modifier = Modifier.padding(all = 10.dp),verticalAlignment = Alignment.CenterVertically) {
-                Image(
-                    painter = painterResource(R.drawable.avatar3),
-                    contentDescription = "Avatar2",
-                    modifier = Modifier
-                        // Set image size to 40 dp
-                        .size(50.dp)
-                        // Clip image to be shaped as a circle
-                        .clip(CircleShape)
-                        .border(2.5.dp, MaterialTheme.colorScheme.inversePrimary, CircleShape)
+                    textAlign = TextAlign.Justify
                 )
-                Spacer(modifier = Modifier.width(8.dp))
-                Text(
-                    text = "VisitanteX",
-                    color = Color.White,
-                    fontSize = 25.sp,
-                    fontFamily = FontFamily(Font(R.font.nunito_variable_font_wght)),
-                    textAlign = TextAlign.Center,
-
-                    )
-
-            }
-            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceAround){
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(15.dp)
-                        .background(Color.White, RoundedCornerShape(8.dp))
-                        .padding(16.dp)
-                ) {
-                    Column(
-                        modifier = Modifier.fillMaxWidth(),
-                        verticalArrangement = Arrangement.Bottom,
-
-                        ) {
-                        Text(
-
-                            text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac odio nec turpis pulvinar facilisis. Proin quis tortor a velit sollicitudin eleifend. Nullam consectetur arcu at mi ullamcorper",
-                            color = Purple,
-                            fontSize = 10.sp,
-                            fontFamily = FontFamily(Font(R.font.nunito_variable_font_wght)),
-                            textAlign = TextAlign.Justify
-                        )
-                        Spacer(modifier = Modifier.height(8.dp))
-                        Image(
-                            painter = painterResource(R.drawable.me_gusta),
-                            contentDescription = "like",
-                            modifier = Modifier
-                                // Set image size to 40 dp
-                                .size(10.dp)
-                        )
-                    }
-                }
-            }
-            Row(modifier = Modifier.padding(all = 20.dp),verticalAlignment = Alignment.CenterVertically) {
+                Spacer(modifier = Modifier.height(8.dp))
                 Image(
-                    painter = painterResource(R.drawable.avatar4),
-                    contentDescription = "Avatar2",
-                    modifier = Modifier
-                        // Set image size to 40 dp
-                        .size(50.dp)
-                        // Clip image to be shaped as a circle
-                        .clip(CircleShape)
-                        .border(2.5.dp, MaterialTheme.colorScheme.inversePrimary, CircleShape)
+                    painter = painterResource(R.drawable.me_gusta),
+                    contentDescription = "Like",
+                    modifier = Modifier.size(10.dp)
                 )
-                Spacer(modifier = Modifier.width(8.dp))
-                Text(
-                    text = "VisitanteX",
-                    color = Color.White,
-                    fontSize = 25.sp,
-                    fontFamily = FontFamily(Font(R.font.nunito_variable_font_wght)),
-                    textAlign = TextAlign.Center,
-
-                    )
-
-            }
-            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceAround){
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(15.dp)
-                        .background(Color.White, RoundedCornerShape(8.dp))
-                        .padding(16.dp)
-                ) {
-                    Column(
-                        modifier = Modifier.fillMaxWidth(),
-                        verticalArrangement = Arrangement.Bottom,
-
-                        ) {
-                        Text(
-
-                            text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
-                            color = Purple,
-                            fontSize = 10.sp,
-                            fontFamily = FontFamily(Font(R.font.nunito_variable_font_wght)),
-                            textAlign = TextAlign.Justify
-                        )
-                        Spacer(modifier = Modifier.height(8.dp))
-                        Image(
-                            painter = painterResource(R.drawable.me_gusta),
-                            contentDescription = "like",
-                            modifier = Modifier
-                                // Set image size to 40 dp
-                                .size(10.dp)
-                        )
-                    }
-                }
             }
         }
 
-
+    }
+}
+@Composable
+fun MultipleAvatars(userInfoList: List<UserInfo>) {
+    LazyColumn {
+        items(userInfoList) { userInfo ->
+            AvatarRow(userInfo = userInfo)
+        }
     }
 }
 @Preview
