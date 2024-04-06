@@ -94,7 +94,9 @@ fun firstScreen(navController: NavController) {
         contentAlignment = Alignment.TopCenter // contenido en la parte superior central
     ) {
         Column(
-            horizontalAlignment = Alignment.CenterHorizontally, // Centra horizontalmente los elementos de la columna
+            horizontalAlignment = Alignment.CenterHorizontally,
+            // Centra horizontalmente los elementos de la columna
+           // verticalArrangement = Arr,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 100.dp) // Ajusta este valor para mover el contenido hacia abajo desde el borde superior
