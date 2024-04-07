@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -24,6 +25,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
@@ -74,6 +77,8 @@ fun App() {
         composable("firstScreen") { firstScreen(navController) }
         composable("secondScreen") { secondScreen(navController) }
         composable("thirdScreen") { thirdScreen(navController) }
+        composable("fourScreen") { FourScreen(navController) }
+        composable("fiveScreen") { FiveScreen(navController) }
     }
 }
 
@@ -261,7 +266,7 @@ fun secondScreen(navController: NavController) {
                             )
                             Spacer(modifier = Modifier.height(16.dp))
                                     //TODO ICON
-                            Button(onClick = {navController.navigate("thirdScreen") },
+                            Button(onClick = {navController.navigate("fiveScreen") },
                                 shape = CircleShape,
                                 modifier = Modifier
                                     .size(50.dp) ,
@@ -270,7 +275,9 @@ fun secondScreen(navController: NavController) {
                                 Icon(
                                     painter = painterResource(id = R.drawable.back),
                                     contentDescription = "Regresa",
-                                    modifier = Modifier.size(200.dp).padding(3.dp),
+                                    modifier = Modifier
+                                        .size(200.dp)
+                                        .padding(3.dp),
                                     tint = Color.White
                                 )
                             }
@@ -470,12 +477,8 @@ fun thirdScreen(navController: NavController) {
     }
 
 }
-/*@Preview
-@Composable
-fun ThirdScreenPreview() {
-    val navController = rememberNavController()
-    thirdScreen(navController)
-}*/
+
+
 @Composable
 fun FourScreen(navController: NavController){
     val gradiente = Brush.verticalGradient(
@@ -621,9 +624,254 @@ fun MultipleAvatars(userInfoList: List<UserInfo>) {
         }
     }
 }
-@Preview
 @Composable
-fun FourScreenPreview() {
-    val navController = rememberNavController()
-    FourScreen(navController)
-}
+fun FiveScreen(navController: NavController) {
+    val gradiente = Brush.verticalGradient(
+        colors = listOf(Color(0xFF8E66B8), Color(0xFF0B5884))
+    )
+    //
+
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(brush = gradiente)
+    ) {
+        Column(modifier = Modifier.fillMaxSize()) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 80.dp)
+                    .height(IntrinsicSize.Min)
+                    .weight(0.25f)
+            ) {
+                Box(
+                    modifier = Modifier
+                        .weight(0.3f)
+                        .fillMaxHeight(),
+                    contentAlignment = Alignment.Center
+
+                ) {
+                    IconButton(onClick = {navController.navigate("fourScreen")}) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.back),
+                            contentDescription = "Regresa",
+                            modifier = Modifier.size(200.dp),
+                            tint = Color.White
+                        )
+                    }
+                }
+                Box(
+                    modifier = Modifier
+                        .weight(0.75f)
+                        .fillMaxHeight()
+                        .padding(start = 50.dp)
+                ) {
+                    Row {
+                        Image(
+                            painter = painterResource(id = R.drawable.avatar1),
+                            contentDescription = "avatar",
+                            modifier = Modifier.size(100.dp)
+                        )
+                    }
+
+
+                }
+
+
+            }
+            Row(
+                modifier = Modifier
+                    .weight(0.65f)
+                    .fillMaxWidth()
+            ) {
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally, // Centra horizontalmente los elementos de la columna
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 40.dp) // Ajusta este valor para mover el contenido hacia abajo desde el borde superior
+                ) {
+                    Button(
+                        onClick = {/**/ },
+                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF8E66B8)),
+                        modifier = Modifier
+                            .width(150.dp)
+                            .height(40.dp),
+                        shape = RoundedCornerShape(30.dp) // Esquinas redondeadas a 8.dp
+                    ) {
+                        Text(
+                            "Adquiere premium",
+                            color = Color.White,
+                            fontSize = 10.sp,
+                            fontWeight = FontWeight.Bold,
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier.padding(3.dp)
+                        )
+                    }
+                    Spacer(modifier = Modifier.height(25.dp))
+                        Button(
+                            onClick = {/**/ },
+                            colors = ButtonDefaults.buttonColors(containerColor = Color.White),
+                            modifier = Modifier
+                                .width(320.dp)
+                                .height(50.dp),
+                            shape = RoundedCornerShape(30.dp) // Esquinas redondeadas a 8.dp
+                        ) {
+                            Text(
+                                "Personaliza tu cuenta",
+                                color = Color.Gray,
+                                fontSize = 20.sp,
+                                fontWeight = FontWeight.Bold,
+                                textAlign = TextAlign.Center,
+                                modifier = Modifier.padding(3.dp)
+                            )
+                            Spacer(modifier = Modifier.width(20.dp))
+                            Icon(
+                                imageVector = Icons.Default.ArrowForward, // Icono de flecha
+                                contentDescription = "Icono de flecha",
+                                tint = Color.Gray, // Color del icono,
+                                modifier = Modifier.offset(y = 2.dp)
+                            )
+                        }
+                        Spacer(modifier = Modifier.height(15.dp))
+                        //
+                        Button(
+                            onClick = {/**/ },
+                            colors = ButtonDefaults.buttonColors(containerColor = Color.White),
+                            modifier = Modifier
+                                .width(320.dp)
+                                .height(50.dp),
+                            shape = RoundedCornerShape(30.dp) // Esquinas redondeadas a 8.dp
+                        ) {
+                            Text(
+                                "Guarda tu proceso",
+                                color = Color.Gray,
+                                fontSize = 20.sp,
+                                fontWeight = FontWeight.Bold,
+                                textAlign = TextAlign.Center,
+                                modifier = Modifier.padding(3.dp)
+                            )
+                            Spacer(modifier = Modifier.width(42.dp))
+                            Icon(
+                                imageVector = Icons.Default.ArrowForward, // Icono de flecha
+                                contentDescription = "Icono de flecha",
+                                tint = Color.Gray, // Color del icono,
+                                modifier = Modifier.offset(y = 2.dp)
+                            )
+                        }
+                        Spacer(modifier = Modifier.height(15.dp))
+                        //
+                        Button(
+                            onClick = {/**/ },
+                            colors = ButtonDefaults.buttonColors(containerColor = Color.White),
+                            modifier = Modifier
+                                .width(320.dp)
+                                .height(50.dp),
+                            shape = RoundedCornerShape(30.dp) // Esquinas redondeadas a 8.dp
+                        ) {
+                            Text(
+                                "Notificaciones",
+                                color = Color.Gray,
+                                fontSize = 20.sp,
+                                fontWeight = FontWeight.Bold,
+                                textAlign = TextAlign.Center,
+                                modifier = Modifier.padding(3.dp)
+                            )
+                            Spacer(modifier = Modifier.width(80.dp))
+                            Icon(
+                                imageVector = Icons.Default.ArrowForward, // Icono de flecha
+                                contentDescription = "Icono de flecha",
+                                tint = Color.Gray, // Color del icono,
+                                modifier = Modifier.offset(y = 2.dp)
+                            )
+                        }
+                        Spacer(modifier = Modifier.height(15.dp))
+                        //
+                        Button(
+                            onClick = {/**/ },
+                            colors = ButtonDefaults.buttonColors(containerColor = Color.White),
+                            modifier = Modifier
+                                .width(320.dp)
+                                .height(50.dp),
+                            shape = RoundedCornerShape(30.dp) // Esquinas redondeadas a 8.dp
+                        ) {
+                            Text(
+                                "Cambiar idioma",
+                                color = Color.Gray,
+                                fontSize = 20.sp,
+                                fontWeight = FontWeight.Bold,
+                                textAlign = TextAlign.Center,
+                                modifier = Modifier.padding(3.dp)
+                            )
+                            Spacer(modifier = Modifier.width(70.dp))
+                            Icon(
+                                imageVector = Icons.Default.ArrowForward, // Icono de flecha
+                                contentDescription = "Icono de flecha",
+                                tint = Color.Gray, // Color del icono,
+                                modifier = Modifier.offset(y = 2.dp)
+                            )
+                        }
+                        Spacer(modifier = Modifier.height(15.dp))
+                        //
+                        Button(
+                            onClick = {/**/ },
+                            colors = ButtonDefaults.buttonColors(containerColor = Color.White),
+                            modifier = Modifier
+                                .width(320.dp)
+                                .height(50.dp),
+                            shape = RoundedCornerShape(30.dp) // Esquinas redondeadas a 8.dp
+                        ) {
+                            Text(
+                                "Soporte",
+                                color = Color.Gray,
+                                fontSize = 20.sp,
+                                fontWeight = FontWeight.Bold,
+                                textAlign = TextAlign.Center,
+                                modifier = Modifier.padding(3.dp)
+                            )
+                            Spacer(modifier = Modifier.width(138.dp))
+                            Icon(
+                                imageVector = Icons.Default.ArrowForward, // Icono de flecha
+                                contentDescription = "Icono de flecha",
+                                tint = Color.Gray, // Color del icono,
+                                modifier = Modifier.offset(y = 2.dp)
+                            )
+                        }
+                        Spacer(modifier = Modifier.height(15.dp))
+                        //
+                        Button(
+                            onClick = {/**/ },
+                            colors = ButtonDefaults.buttonColors(containerColor = Color.White),
+                            modifier = Modifier
+                                .width(320.dp)
+                                .height(50.dp),
+                            shape = RoundedCornerShape(30.dp) // Esquinas redondeadas a 8.dp
+                        ) {
+                            Text(
+                                "Política de privacidad",
+                                color = Color.Gray,
+                                fontSize = 20.sp,
+                                fontWeight = FontWeight.Bold,
+                                textAlign = TextAlign.Center,
+                                modifier = Modifier.padding(3.dp)
+                            )
+                            Spacer(modifier = Modifier.width(13.dp))
+                            Icon(
+                                imageVector = Icons.Default.ArrowForward, // Icono de flecha
+                                contentDescription = "Icono de flecha",
+                                tint = Color.Gray, // Color del icono,
+                                modifier = Modifier.offset(y = 2.dp)
+                            )
+                        }
+
+
+                    }
+                }
+
+            }
+
+        }
+
+        //
+
+    }
+
