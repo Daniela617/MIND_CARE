@@ -73,12 +73,14 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun App() {
     val navController = rememberNavController()
-    NavHost(navController, startDestination = "firstScreen") {
+    NavHost(navController, startDestination = "secondScreen") {
         composable("firstScreen") { firstScreen(navController) }
         composable("secondScreen") { secondScreen(navController) }
         composable("thirdScreen") { thirdScreen(navController) }
+
         composable("fourScreen") { FourScreen(navController) }
         composable("fiveScreen") { FiveScreen(navController) }
+
     }
 }
 
@@ -289,12 +291,6 @@ fun secondScreen(navController: NavController) {
 
         }
 
-
-
-
-
-
-
     }
 
 
@@ -319,136 +315,41 @@ fun thirdScreen(navController: NavController) {
             textAlign = TextAlign.Center
         )
         Spacer(modifier = Modifier.height(25.dp))
-        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceAround){
-            Column(
-                modifier = Modifier
-                    .background(Color.White, RoundedCornerShape(8.dp))
-                    .padding(horizontal = 24.dp, vertical = 32.dp)
-                    .size(120.dp, 45.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center,
-
-
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp), // Agrega margen horizontal a la LazyColumn
+            verticalArrangement = Arrangement.spacedBy(40.dp) // Espacio entre filas
+        ) {
+            val itemsEnGruposDeDos = listaDeItems.chunked(2) // Agrupa en pares
+            items(itemsEnGruposDeDos) { items ->
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceEvenly // Distribuye uniformemente
                 ) {
-                Text(
-                    text = "Ansiedad",
-                    color = Color(0xFF8E66B8),
-                    fontSize = 23.sp,
-                )
+                    items.forEach { item ->
+                        // Agrega un Spacer entre cada elemento
+                        if (items.indexOf(item) != 0) {
+                            Spacer(modifier = Modifier.width(30.dp))
+                        }
+                        Column(
+                            modifier = Modifier
+                                .weight(1f) // Peso igual para cada elemento de la columna
+                                .background(Color.White, RoundedCornerShape(8.dp))
+                                .padding(horizontal = 24.dp, vertical = 32.dp),
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.Center
+                        ) {
+                            Text(
+                                text = item.nombre,
+                                color = Color(0xFF8E66B8),
+                                fontSize = 23.sp
+                            )
+                        }
+                    }
+                }
             }
-            Column(
-                modifier = Modifier
-                    .background(Color.White, RoundedCornerShape(8.dp))
-                    .padding(horizontal = 24.dp, vertical = 32.dp)
-                    .size(120.dp, 45.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center,
-            ) {
-                Text(
-                    text = "Depresión",
-                    color = Color(0xFF8E66B8),
-                    fontSize = 23.sp,
-                )
-            }
-        }
-        Spacer(modifier = Modifier.height(40.dp))
-        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceAround){
-            Column(
-                modifier = Modifier
-                    .background(Color.White, RoundedCornerShape(8.dp))
-                    .padding(horizontal = 24.dp, vertical = 32.dp)
-                    .size(120.dp, 45.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center,
 
-
-                ) {
-                Text(
-                    text = "Relaciones",
-                    color = Color(0xFF8E66B8),
-                    fontSize = 23.sp,
-                )
-            }
-            Column(
-                modifier = Modifier
-                    .background(Color.White, RoundedCornerShape(8.dp))
-                    .padding(horizontal = 24.dp, vertical = 32.dp)
-                    .size(120.dp, 45.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center,
-            ) {
-                Text(
-                    text = "Soledad",
-                    color = Color(0xFF8E66B8),
-                    fontSize = 23.sp,
-                )
-            }
-        }
-        Spacer(modifier = Modifier.height(40.dp))
-        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceAround){
-            Column(
-                modifier = Modifier
-                    .background(Color.White, RoundedCornerShape(8.dp))
-                    .padding(horizontal = 24.dp, vertical = 32.dp)
-                    .size(120.dp, 45.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center,
-
-
-                ) {
-                Text(
-                    text = "Traumas",
-                    color = Color(0xFF8E66B8),
-                    fontSize = 23.sp,
-                )
-            }
-            Column(
-                modifier = Modifier
-                    .background(Color.White, RoundedCornerShape(8.dp))
-                    .padding(horizontal = 24.dp, vertical = 32.dp)
-                    .size(120.dp, 45.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center,
-            ) {
-                Text(
-                    text = "Embarazo",
-                    color = Color(0xFF8E66B8),
-                    fontSize = 23.sp,
-                )
-            }
-        }
-        Spacer(modifier = Modifier.height(40.dp))
-        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceAround){
-            Column(
-                modifier = Modifier
-                    .background(Color.White, RoundedCornerShape(8.dp))
-                    .padding(horizontal = 24.dp, vertical = 32.dp)
-                    .size(120.dp, 45.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center,
-
-
-                ) {
-                Text(
-                    text = "Motivación",
-                    color = Color(0xFF8E66B8),
-                    fontSize = 23.sp,
-                )
-            }
-            Column(
-                modifier = Modifier
-                    .background(Color.White, RoundedCornerShape(8.dp))
-                    .padding(horizontal = 24.dp, vertical = 32.dp)
-                    .size(120.dp, 45.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center,
-            ) {
-                Text(
-                    text = "Insomnio",
-                    color = Color(0xFF8E66B8),
-                    fontSize = 23.sp,
-                )
-            }
         }
         Spacer(modifier = Modifier.height(16.dp))
         Row(
@@ -456,7 +357,7 @@ fun thirdScreen(navController: NavController) {
             horizontalArrangement = Arrangement.Center
         ) {
             Button(
-                onClick = {},
+                onClick = {navController.navigate("FourScreen")},
                 colors = ButtonDefaults.buttonColors(containerColor =Color(0xFF8E66B8) ),
                 modifier = Modifier
                     .width(300.dp)
@@ -472,12 +373,28 @@ fun thirdScreen(navController: NavController) {
                 )
             }
         }
-
-
     }
 
 }
 
+data class Item(val nombre: String)
+
+val listaDeItems = listOf(
+    Item("Ansiedad"),
+    Item("Depresión"),
+    Item("Relaciones"),
+    Item("Soledad"),
+    Item("Traumas"),
+    Item("Embarazo"),
+    Item("Tristeza"),
+    Item("Sueño")
+)
+@Preview
+@Composable
+fun ThirdScreenPreview() {
+    val navController = rememberNavController()
+    thirdScreen(navController)
+}
 
 @Composable
 fun FourScreen(navController: NavController){
@@ -624,6 +541,7 @@ fun MultipleAvatars(userInfoList: List<UserInfo>) {
         }
     }
 }
+
 @Composable
 fun FiveScreen(navController: NavController) {
     val gradiente = Brush.verticalGradient(
@@ -874,4 +792,5 @@ fun FiveScreen(navController: NavController) {
         //
 
     }
+
 
