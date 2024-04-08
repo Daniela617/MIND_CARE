@@ -1,11 +1,14 @@
 package co.edu.unicauca.mind_care_project
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -27,6 +30,12 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowForward
+import androidx.compose.material.icons.filled.Face
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.material3.BottomAppBar
+import androidx.compose.material3.BottomAppBarDefaults
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
@@ -53,8 +62,13 @@ import androidx.navigation.compose.rememberNavController
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.Divider
+import androidx.compose.material3.Scaffold
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import co.edu.unicauca.mind_care_project.ui.theme.Mind_care_projectTheme
@@ -73,13 +87,14 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun App() {
     val navController = rememberNavController()
-    NavHost(navController, startDestination = "secondScreen") {
+    NavHost(navController, startDestination = "firstScreen") {
         composable("firstScreen") { firstScreen(navController) }
         composable("secondScreen") { secondScreen(navController) }
         composable("thirdScreen") { thirdScreen(navController) }
 
         composable("fourScreen") { FourScreen(navController) }
         composable("fiveScreen") { FiveScreen(navController) }
+        composable("SixScreen") { SixScreen(navController) }
 
     }
 }
@@ -268,7 +283,7 @@ fun secondScreen(navController: NavController) {
                             )
                             Spacer(modifier = Modifier.height(16.dp))
                                     //TODO ICON
-                            Button(onClick = {navController.navigate("fiveScreen") },
+                            Button(onClick = {navController.navigate("thirdScreen") },
                                 shape = CircleShape,
                                 modifier = Modifier
                                     .size(50.dp) ,
@@ -389,13 +404,23 @@ val listaDeItems = listOf(
     Item("Tristeza"),
     Item("Sueño")
 )
-@Preview
+/*@Preview
 @Composable
 fun ThirdScreenPreview() {
     val navController = rememberNavController()
     thirdScreen(navController)
+}*/
+
+@Preview
+@Composable
+fun SixScreenPreview() {
+    val navController = rememberNavController()
+    SixScreen(navController )
 }
 
+
+
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun FourScreen(navController: NavController){
     val gradiente = Brush.verticalGradient(
@@ -403,75 +428,125 @@ fun FourScreen(navController: NavController){
     )
     val Purple = Color(0xFF9C27B0)
     val userInfoList = UsersMessages.getUserInfo()
-    Row(modifier = Modifier.padding(all = 8.dp)) {
-        Column(
+    Scaffold(
+        bottomBar = {
+
+            BottomAppBar(
+                containerColor =Color(0xFF8E66B8),
+                content = {
+                    Row(
+                        horizontalArrangement = Arrangement.SpaceEvenly,
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        BottomAppBarItem(
+                            iconId = R.drawable.mynaui_home,
+                            label = "Inicio",
+                            onClick = {  navController.navigate("fourScreen") }
+                        )
+                        BottomAppBarItem(
+                            iconId = R.drawable.streamline_health_care_2,
+                            label = "Cuidados",
+                            onClick = { /* TODO" */ }
+                        )
+                        BottomAppBarItem(
+                            iconId = R.drawable.terapiavec,
+                            label = "Terapia",
+                            onClick = { /* TODO" */ }
+                        )
+                        BottomAppBarItem(
+                            iconId = R.drawable.sosvec,
+                            label = "SOS",
+                            onClick = { /*TODO */ }
+                        )
+                    }
+                }
+            )
+        }
+
+    ){Box(
             modifier = Modifier
                 .fillMaxSize()
                 .background(brush = gradiente)
-        ) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.padding(25.dp)
             ) {
+        Row(modifier = Modifier.padding(all = 8.dp)) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(brush = gradiente)
+            ) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.padding(25.dp)
+                ) {
 
-                Text(
-                    text = "Mind Care",
-                    color = Color.White,
-                    fontSize = 30.sp,
-                    fontFamily = FontFamily(Font(R.font.nunito_bold, FontWeight.Bold)),
-                    textAlign = TextAlign.Left
-                )
-                Spacer(modifier = Modifier.width(110.dp))
-                Image(
-                    painter = painterResource(R.drawable.iconobusqueda),
-                    contentDescription = "Icono de búsqueda",
-                    modifier = Modifier.size(20.dp)
-                )
-                Spacer(modifier = Modifier.width(8.dp))
-                Image(
-                    painter = painterResource(R.drawable.globos_de_texto),
-                    contentDescription = "Mensajes",
-                    modifier = Modifier.size(20.dp)
-                )
-                Spacer(modifier = Modifier.width(8.dp))
-                Image(
-                    painter = painterResource(R.drawable.rueda_dentada),
-                    contentDescription = "Configuración",
-                    modifier = Modifier.size(20.dp)
-                )
+                    Text(
+                        text = "Mind Care",
+                        color = Color.White,
+                        fontSize = 30.sp,
+                        fontFamily = FontFamily(Font(R.font.nunito_bold, FontWeight.Bold)),
+                        textAlign = TextAlign.Left
+                    )
+                    Spacer(modifier = Modifier.width(110.dp))
+                    Image(
+                        painter = painterResource(R.drawable.iconobusqueda),
+                        contentDescription = "Icono de búsqueda",
+                        modifier = Modifier
+                            .size(20.dp)
+                            .clickable { navController.navigate("SixScreen") }
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Image(
+                        painter = painterResource(R.drawable.globos_de_texto),
+                        contentDescription = "Mensajes",
+                        modifier = Modifier.size(20.dp)
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Image(
+                        painter = painterResource(R.drawable.rueda_dentada),
+                        contentDescription = "Configuración",
+                        modifier = Modifier
+                            .size(20.dp)
+                            .clickable { navController.navigate("fiveScreen") }
+                    )
 
-            }
-            Row(modifier = Modifier.padding(all = 8.dp),verticalAlignment = Alignment.CenterVertically) {
-                Image(
-                    painter = painterResource(R.drawable.avatar1),
-                    contentDescription = "Avatar1",
-                    modifier = Modifier
-                        // Set image size to 40 dp
-                        .size(60.dp)
-                        // Clip image to be shaped as a circle
-                        .clip(CircleShape)
-                        .border(1.5.dp, MaterialTheme.colorScheme.inversePrimary, CircleShape)
-                )
-                Spacer(modifier = Modifier.width(8.dp))
-                Text(
-                    text = "¿En qué estás pensando?",
-                    color = Color.White,
-                    fontSize = 25.sp,
-                    fontFamily = FontFamily(Font(R.font.nunito_variable_font_wght)),
-                    textAlign = TextAlign.Center
-                )
-            }
-            Row(modifier = Modifier.padding(all = 8.dp)) {
-                Box(modifier = Modifier
-                    .fillMaxWidth()
-                    .height(1.dp)) {
-                    Divider(color = Color.White, thickness = 1.dp)
                 }
+                Row(
+                    modifier = Modifier.padding(all = 8.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Image(
+                        painter = painterResource(R.drawable.avatar1),
+                        contentDescription = "Avatar1",
+                        modifier = Modifier
+                            .size(60.dp)
+                            .clip(CircleShape)
+                            .border(1.5.dp, MaterialTheme.colorScheme.inversePrimary, CircleShape)
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text(
+                        text = "¿En qué estás pensando?",
+                        color = Color.White,
+                        fontSize = 25.sp,
+                        fontFamily = FontFamily(Font(R.font.nunito_variable_font_wght)),
+                        textAlign = TextAlign.Center
+                    )
+                }
+                Row(modifier = Modifier.padding(all = 8.dp)) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(1.dp)
+                    ) {
+                        Divider(color = Color.White, thickness = 1.dp)
+                    }
+                }
+
+                MultipleAvatars(userInfoList = userInfoList)
+
             }
 
-            MultipleAvatars(userInfoList = userInfoList)
         }
-
+    }
     }
 }
 @Composable
@@ -541,91 +616,143 @@ fun MultipleAvatars(userInfoList: List<UserInfo>) {
         }
     }
 }
-
+@Composable
+fun  BottomAppBarItem(
+    @DrawableRes iconId: Int,
+    label: String,
+    onClick: () -> Unit
+) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center,
+        modifier = Modifier.clickable(onClick = onClick)
+    ) {
+        Icon( painter = painterResource(id = iconId), contentDescription = label,tint =Color.White)
+        Text(label, color = Color.White)
+    }
+}
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun FiveScreen(navController: NavController) {
     val gradiente = Brush.verticalGradient(
         colors = listOf(Color(0xFF8E66B8), Color(0xFF0B5884))
     )
+
     //
+    Scaffold(
+        bottomBar = {
 
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(brush = gradiente)
-    ) {
-        Column(modifier = Modifier.fillMaxSize()) {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 80.dp)
-                    .height(IntrinsicSize.Min)
-                    .weight(0.25f)
-            ) {
-                Box(
-                    modifier = Modifier
-                        .weight(0.3f)
-                        .fillMaxHeight(),
-                    contentAlignment = Alignment.Center
-
-                ) {
-                    IconButton(onClick = {navController.navigate("fourScreen")}) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.back),
-                            contentDescription = "Regresa",
-                            modifier = Modifier.size(200.dp),
-                            tint = Color.White
+            BottomAppBar(
+                containerColor =Color(0xFF8E66B8),
+                content = {
+                    Row(
+                        horizontalArrangement = Arrangement.SpaceEvenly,
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        BottomAppBarItem(
+                            iconId = R.drawable.mynaui_home,
+                                    label = "Inicio",
+                            onClick = {  navController.navigate("fourScreen") }
+                        )
+                        BottomAppBarItem(
+                            iconId = R.drawable.streamline_health_care_2,
+                            label = "Cuidados",
+                            onClick = { /* Acción al hacer clic en "Cuidados" */ }
+                        )
+                        BottomAppBarItem(
+                            iconId = R.drawable.terapiavec,
+                            label = "Terapia",
+                            onClick = { /* Acción al hacer clic en "Terapia" */ }
+                        )
+                        BottomAppBarItem(
+                            iconId = R.drawable.sosvec,
+                            label = "SOS",
+                            onClick = { /* Acción al hacer clic en "SOS" */ }
                         )
                     }
                 }
-                Box(
-                    modifier = Modifier
-                        .weight(0.75f)
-                        .fillMaxHeight()
-                        .padding(start = 50.dp)
-                ) {
-                    Row {
-                        Image(
-                            painter = painterResource(id = R.drawable.avatar1),
-                            contentDescription = "avatar",
-                            modifier = Modifier.size(100.dp)
-                        )
-                    }
+            )
+        }
 
+        ) {
 
-                }
-
-
-            }
-            Row(
-                modifier = Modifier
-                    .weight(0.65f)
-                    .fillMaxWidth()
-            ) {
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally, // Centra horizontalmente los elementos de la columna
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(brush = gradiente)
+        ) {
+            Column(modifier = Modifier.fillMaxSize()) {
+                Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(top = 40.dp) // Ajusta este valor para mover el contenido hacia abajo desde el borde superior
+                        .padding(top = 80.dp)
+                        .height(IntrinsicSize.Min)
+                        .weight(0.25f)
                 ) {
-                    Button(
-                        onClick = {/**/ },
-                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF8E66B8)),
+                    Box(
                         modifier = Modifier
-                            .width(150.dp)
-                            .height(40.dp),
-                        shape = RoundedCornerShape(30.dp) // Esquinas redondeadas a 8.dp
+                            .weight(0.3f)
+                            .fillMaxHeight(),
+                        contentAlignment = Alignment.Center
+
                     ) {
-                        Text(
-                            "Adquiere premium",
-                            color = Color.White,
-                            fontSize = 10.sp,
-                            fontWeight = FontWeight.Bold,
-                            textAlign = TextAlign.Center,
-                            modifier = Modifier.padding(3.dp)
-                        )
+                        IconButton(onClick = { navController.navigate("fourScreen") }) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.back),
+                                contentDescription = "Regresa",
+                                modifier = Modifier.size(200.dp),
+                                tint = Color.White
+                            )
+                        }
                     }
-                    Spacer(modifier = Modifier.height(25.dp))
+                    Box(
+                        modifier = Modifier
+                            .weight(0.75f)
+                            .fillMaxHeight()
+                            .padding(start = 50.dp)
+                    ) {
+                        Row {
+                            Image(
+                                painter = painterResource(id = R.drawable.avatar1),
+                                contentDescription = "avatar",
+                                modifier = Modifier.size(100.dp)
+                            )
+                        }
+
+
+                    }
+
+
+                }
+                Row(
+                    modifier = Modifier
+                        .weight(0.65f)
+                        .fillMaxWidth()
+                ) {
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally, // Centra horizontalmente los elementos de la columna
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 40.dp) // Ajusta este valor para mover el contenido hacia abajo desde el borde superior
+                    ) {
+                        Button(
+                            onClick = {/**/ },
+                            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF8E66B8)),
+                            modifier = Modifier
+                                .width(150.dp)
+                                .height(40.dp),
+                            shape = RoundedCornerShape(30.dp) // Esquinas redondeadas a 8.dp
+                        ) {
+                            Text(
+                                "Adquiere premium",
+                                color = Color.White,
+                                fontSize = 10.sp,
+                                fontWeight = FontWeight.Bold,
+                                textAlign = TextAlign.Center,
+                                modifier = Modifier.padding(3.dp)
+                            )
+                        }
+                        Spacer(modifier = Modifier.height(25.dp))
                         Button(
                             onClick = {/**/ },
                             colors = ButtonDefaults.buttonColors(containerColor = Color.White),
@@ -785,12 +912,191 @@ fun FiveScreen(navController: NavController) {
                     }
                 }
 
+
             }
 
         }
-
-        //
-
     }
+    }
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@Composable
+fun SixScreen(navController: NavController){
+    val gradiente = Brush.verticalGradient(
+        colors = listOf(Color(0xFF8E66B8), Color(0xFF0B5884))
+    )
+    var searchText by remember { mutableStateOf("") }
+
+    //
+    Scaffold(
+        bottomBar = {
+
+            BottomAppBar(
+                containerColor =Color(0xFF8E66B8),
+                content = {
+                    Row(
+                        horizontalArrangement = Arrangement.SpaceEvenly,
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        BottomAppBarItem(
+                            iconId = R.drawable.mynaui_home,
+                            label = "Inicio",
+                            onClick = {  navController.navigate("fourScreen") }
+                        )
+                        BottomAppBarItem(
+                            iconId = R.drawable.streamline_health_care_2,
+                            label = "Cuidados",
+                            onClick = { /* Acción al hacer clic en "Cuidados" */ }
+                        )
+                        BottomAppBarItem(
+                            iconId = R.drawable.terapiavec,
+                            label = "Terapia",
+                            onClick = { /* Acción al hacer clic en "Terapia" */ }
+                        )
+                        BottomAppBarItem(
+                            iconId = R.drawable.sosvec,
+                            label = "SOS",
+                            onClick = { /* Acción al hacer clic en "SOS" */ }
+                        )
+                    }
+                }
+            )
+        }
+
+    ) {
+
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(brush = gradiente)
+        ) {
+            Column(modifier = Modifier.fillMaxSize()) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.padding(15.dp)
+                ) {
+
+                    IconButton(onClick = { navController.navigate("fourScreen") }) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.back),
+                            contentDescription = "Regresa",
+                            modifier = Modifier.size(40.dp),
+                            tint = Color.White
+                        )
+                    }
+                    Spacer(modifier = Modifier.width(10.dp))
+
+                    TextField(
+                            value = searchText,
+                            onValueChange = { searchText = it },
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(50.dp)
+                                .clip(RoundedCornerShape(20.dp)),
+                            placeholder = {  Text(
+                                text = "Busca",
+                                style = TextStyle(fontSize = 14.sp),
+                                textAlign= TextAlign.Center
+                            )},
+                            singleLine = true
+                    )
+
+                }
+                Row(
+                    modifier = Modifier.padding(all = 8.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = "Reciente",
+                        color = Color.White,
+                        fontSize = 30.sp,
+                        fontWeight = FontWeight.Bold,
+                        modifier= Modifier.padding(8.dp)
+                    )
+                }
+                Row(
+                    modifier = Modifier.padding(all = 8.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Image(
+                        painter = painterResource(R.drawable.avatar2),
+                        contentDescription = "Avatar2",
+                        modifier = Modifier
+                            .size(35.dp)
+                            .clip(CircleShape)
+
+                            .border(1.5.dp, MaterialTheme.colorScheme.inversePrimary, CircleShape)
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text(
+                        text = "Anon555",
+                        color = Color.White,
+                        fontSize = 20.sp,
+                        fontFamily = FontFamily(Font(R.font.nunito_variable_font_wght)),
+                        textAlign = TextAlign.Center
+                    )
+
+                }
+                Row(
+                    modifier = Modifier.padding(all = 8.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ){
+                    Image(
+                        painter = painterResource(R.drawable.avatar3),
+                        contentDescription = "Avatar2",
+                        modifier = Modifier
+                            .size(35.dp)
+                            .clip(CircleShape)
+                            //.padding(10.dp)
+                            .border(1.5.dp, MaterialTheme.colorScheme.inversePrimary, CircleShape)
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text(
+                        text = "VisitanteX",
+                        color = Color.White,
+                        fontSize = 20.sp,
+                        fontFamily = FontFamily(Font(R.font.nunito_variable_font_wght)),
+                        textAlign = TextAlign.Center
+                    )
+
+                }
+                Row(
+                    modifier = Modifier.padding(all = 8.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ){
+                    Image(
+                        painter = painterResource(R.drawable.iconobusqueda),
+                        contentDescription = "Busqueda",
+                        modifier = Modifier
+                            .size(25.dp)
+
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text(
+                        text = "Depresión",
+                        color = Color.White,
+                        fontSize = 20.sp,
+                        fontFamily = FontFamily(Font(R.font.nunito_variable_font_wght)),
+                        textAlign = TextAlign.Center
+                    )
+
+                }
+                Row(modifier = Modifier.padding(all = 8.dp)) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(1.dp)
+                    ) {
+                        Divider(color = Color.White, thickness = 1.dp)
+                    }
+                }
+            }
+        }
+    }
+
+
+}
+
+
+
 
 
