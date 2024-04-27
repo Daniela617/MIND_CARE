@@ -15,6 +15,7 @@ import co.edu.unicauca.mind_care_project.ui.theme.Mind_care_projectTheme
 import co.edu.unicauca.mind_care_project.Screens.FirstScreen
 import co.edu.unicauca.mind_care_project.Screens.FiveScreen
 import co.edu.unicauca.mind_care_project.Screens.FourScreen
+import co.edu.unicauca.mind_care_project.Screens.IntroductionPage
 import co.edu.unicauca.mind_care_project.Screens.SecondScreen
 import co.edu.unicauca.mind_care_project.Screens.SixScreen
 
@@ -32,7 +33,11 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun App() {
     val navController = rememberNavController()
-    NavHost(navController, startDestination = "firstScreen") {
+    NavHost(navController, startDestination = "introductionPage") {
+        composable("introductionPage") { IntroductionPage {
+                destination ->
+            Navigation.navigateToScreen(navController, destination)
+        } }
         composable("firstScreen") { FirstScreen {
                 destination ->
             Navigation.navigateToScreen(navController, destination)
