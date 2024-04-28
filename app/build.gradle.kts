@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    id("kotlin-kapt")
 }
 
 android {
@@ -67,4 +68,9 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    //Room
+    implementation("androidx.room:room-runtime:2.5.1") // Versión actual de Room
+    kapt("androidx.room:room-compiler:2.5.1") // Procesador de anotaciones
+    implementation("androidx.room:room-ktx:2.5.1")
 }
