@@ -2,15 +2,23 @@ package co.edu.unicauca.mind_care_project
 import androidx.compose.foundation.background
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+
 import androidx.compose.foundation.layout.Column
+
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -25,6 +33,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
@@ -38,6 +47,10 @@ fun thirdScreen(onClick: (String) -> Unit) {
         modifier = Modifier
             .fillMaxSize()
             .background(brush = gradiente)
+            .padding(horizontal = 16.dp),
+
+        verticalArrangement = Arrangement.SpaceEvenly,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
             text = "Personalicemos tu\nespacio",
@@ -46,45 +59,38 @@ fun thirdScreen(onClick: (String) -> Unit) {
                 .fillMaxWidth(),
             color = Color.White,
             fontSize = 30.sp,
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
+
         )
-        Spacer(modifier = Modifier.height(25.dp))
-        LazyColumn(
+
+        LazyVerticalGrid(
+            columns  =  GridCells.Adaptive(minSize = 150.dp),
+            verticalArrangement =Arrangement.spacedBy(30.dp) ,
+            horizontalArrangement = Arrangement.spacedBy(10.dp),
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp), // Agrega margen horizontal a la LazyColumn
-            verticalArrangement = Arrangement.spacedBy(40.dp) // Espacio entre filas
+                .padding(horizontal = 16.dp)
+
         ) {
-            val itemsEnGruposDeDos = listaDeItems.chunked(2) // Agrupa en pares
-            items(itemsEnGruposDeDos) { items ->
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceEvenly // Distribuye uniformemente
+            items(listaDeItems) { item ->
+                Box(
+                    modifier = Modifier
+                        .background(Color.White, RoundedCornerShape(8.dp))
+                        .padding(horizontal = 24.dp, vertical = 32.dp)
+
                 ) {
-                    items.forEach { item ->
-                        // Agrega un Spacer entre cada elemento
-                        if (items.indexOf(item) != 0) {
-                            Spacer(modifier = Modifier.width(30.dp))
-                        }
-                        Column(
-                            modifier = Modifier
-                                .weight(1f) // Peso igual para cada elemento de la columna
-                                .background(Color.White, RoundedCornerShape(8.dp))
-                                .padding(horizontal = 24.dp, vertical = 32.dp),
-                            horizontalAlignment = Alignment.CenterHorizontally,
-                            verticalArrangement = Arrangement.Center
-                        ) {
-                            Text(
-                                text = item.nombre,
-                                color = Color(0xFF8E66B8),
-                                fontSize = 23.sp
-                            )
-                        }
-                    }
+                    Text(
+                        text = item.nombre,
+                        color = Color(0xFF8E66B8),
+                        fontSize = 23.sp,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.align(Alignment.Center)
+                    )
                 }
             }
-
         }
+
+
         Spacer(modifier = Modifier.height(16.dp))
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -107,6 +113,7 @@ fun thirdScreen(onClick: (String) -> Unit) {
                 )
             }
         }
+
     }
 
 }
