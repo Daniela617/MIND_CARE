@@ -1,11 +1,13 @@
 package co.edu.unicauca.mind_care_project.room_database
-import androidx.room.Dao
+
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
+import androidx.room.Dao
+@Dao
 interface PreferencesDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(preferences: Preferences)
