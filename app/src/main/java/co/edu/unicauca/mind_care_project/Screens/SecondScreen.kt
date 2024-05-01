@@ -177,8 +177,8 @@ fun BotonEjemplo(
         colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF8E66B8)))
     {
         Icon(
-            painter = painterResource(id = R.drawable.back),
-            contentDescription = "Regresa",
+            painter = painterResource(id = R.drawable.vector),
+            contentDescription = "Siguiente",
             modifier = Modifier
                 .padding(3.dp),
             tint = Color.White

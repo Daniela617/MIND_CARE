@@ -41,6 +41,7 @@ import androidx.compose.ui.unit.sp
 import co.edu.unicauca.mind_care_project.R
 import co.edu.unicauca.mind_care_project.UserInfo
 import co.edu.unicauca.mind_care_project.UsersMessages
+import kotlin.random.Random
 
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -173,16 +174,24 @@ fun FourScreen(onClick: (String) -> Unit){
     }
     }
 }
+
+val iconMap = mapOf(
+    2 to R.drawable.avatar2,
+    3 to R.drawable.avatar3,
+    4 to R.drawable.avatar4
+)
 @Composable
 fun AvatarRow(userInfo: UserInfo) {
     val Purple = Color(0xFF9C27B0)
+    val randomNumber = Random.nextInt(2, 5)
+    val imageId = iconMap[randomNumber] ?: R.drawable.avatar2
 
     Row(
         modifier = Modifier.padding(all = 10.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Image(
-            painter = painterResource(userInfo.imageId),
+            painter = painterResource(imageId),
             contentDescription = "Avatar",
             modifier = Modifier
                 .size(50.dp)
@@ -232,6 +241,7 @@ fun AvatarRow(userInfo: UserInfo) {
 
     }
 }
+
 @Composable
 fun MultipleAvatars(userInfoList: List<UserInfo>) {
     LazyColumn {
