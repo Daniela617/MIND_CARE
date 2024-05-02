@@ -1,9 +1,12 @@
-package co.edu.unicauca.mind_care_project.room_database
+package co.edu.unicauca.mind_care_project.room_database.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Transaction
+import co.edu.unicauca.mind_care_project.room_database.PreferencesWithUsers
+import co.edu.unicauca.mind_care_project.room_database.entities.UserPreferences
+import co.edu.unicauca.mind_care_project.room_database.UserWithPreferences
 
 @Dao
 interface UserPreferencesDao {

@@ -1,4 +1,4 @@
-package co.edu.unicauca.mind_care_project.room_database
+package co.edu.unicauca.mind_care_project.room_database.entities
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
