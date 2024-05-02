@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">MIND CARE</string>
     <string name="username_placeholder">Nombre de usuario...</string>
+    <string name="publication_placeholder">¿En qué estás pensando?</string>
 </resources>

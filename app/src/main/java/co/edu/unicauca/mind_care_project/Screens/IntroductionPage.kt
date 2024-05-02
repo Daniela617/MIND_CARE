@@ -2,8 +2,10 @@ package co.edu.unicauca.mind_care_project.Screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -67,7 +69,7 @@ fun IntroductionPage(onClick: (String) -> Unit) {
                 fontSize = 20.sp,
                 textAlign = TextAlign.Center,
                 fontFamily = FontFamily(Font(R.font.nunito, FontWeight.Normal)),
-                modifier = Modifier.padding(start = 40.dp, end = 40.dp, bottom = 20.dp)
+                modifier = Modifier.padding(start = 40.dp, end = 40.dp, bottom = 8.dp)
 
             )
             Text(
@@ -76,7 +78,7 @@ fun IntroductionPage(onClick: (String) -> Unit) {
                 fontSize = 20.sp,
                 textAlign = TextAlign.Center,
                 fontFamily = FontFamily(Font(R.font.nunito, FontWeight.Normal)),
-                modifier = Modifier.padding(start = 40.dp, end = 40.dp, bottom = 20.dp)
+                modifier = Modifier.padding(start = 40.dp, end = 40.dp, bottom = 8.dp)
 
             )
             Text(
@@ -85,25 +87,31 @@ fun IntroductionPage(onClick: (String) -> Unit) {
                 fontSize = 20.sp,
                 textAlign = TextAlign.Center,
                 fontFamily = FontFamily(Font(R.font.nunito, FontWeight.Normal)),
-                modifier = Modifier.padding(start = 40.dp, end = 40.dp, bottom = 140.dp)
+                modifier = Modifier.padding(start = 40.dp, end = 40.dp, bottom = 100.dp)
 
             )
-            Button(
-                onClick = { onClick("firstScreen") },
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF8E66B8)),
+            Row(
                 modifier = Modifier
-                    .width(300.dp)
-                    .height(50.dp),
-                shape = RoundedCornerShape(30.dp)
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 10.dp),
+                horizontalArrangement = Arrangement.Center
             ) {
-                Text(
-                    "BIENVENIDO",
-                    color = Color.White,
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.Bold,
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier.padding(3.dp)
-                )
+                Button(
+                    onClick = {onClick("FirstScreen")},
+                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF8E66B8) ),
+                    modifier = Modifier
+                        .width(300.dp)
+                        .height(50.dp),
+                    shape = RoundedCornerShape(30.dp)
+                ) {
+                    Text("BIENVENIDO",
+                        color = Color.White,
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Bold,
+                        textAlign = TextAlign.Center ,
+                        modifier = Modifier.padding(3.dp)
+                    )
+                }
             }
 
 
