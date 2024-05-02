@@ -62,57 +62,65 @@ fun thirdScreen(onClick: (String) -> Unit) {
             textAlign = TextAlign.Center,
 
         )
-
-        LazyVerticalGrid(
-            columns  =  GridCells.Adaptive(minSize = 150.dp),
-            verticalArrangement =Arrangement.spacedBy(30.dp) ,
-            horizontalArrangement = Arrangement.spacedBy(10.dp),
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp)
-
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.SpaceEvenly
         ) {
-            items(listaDeItems) { item ->
-                Box(
-                    modifier = Modifier
-                        .background(Color.White, RoundedCornerShape(8.dp))
-                        .padding(horizontal = 24.dp, vertical = 32.dp)
+            LazyVerticalGrid(
+                columns  =  GridCells.Adaptive(minSize = 150.dp),
+                verticalArrangement =Arrangement.spacedBy(30.dp) ,
+                horizontalArrangement = Arrangement.spacedBy(10.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp)
+                    .weight(0.8f)
 
+            ) {
+                items(listaDeItems) { item ->
+                    Box(
+                        modifier = Modifier
+                            .background(Color.White, RoundedCornerShape(8.dp))
+                            .padding(horizontal = 24.dp, vertical = 32.dp)
+
+                    ) {
+                        Text(
+                            text = item.nombre,
+                            color = Color(0xFF8E66B8),
+                            fontSize = 23.sp,
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier.align(Alignment.Center)
+                        )
+                    }
+                }
+            }
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 10.dp),
+                horizontalArrangement = Arrangement.Center
+            ) {
+                Button(
+                    onClick = {onClick("FourScreen")},
+                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF8E66B8) ),
+                    modifier = Modifier
+                        .width(300.dp)
+                        .height(50.dp),
+                    shape = RoundedCornerShape(30.dp) // Esquinas redondeadas a 8.dp
                 ) {
-                    Text(
-                        text = item.nombre,
-                        color = Color(0xFF8E66B8),
-                        fontSize = 23.sp,
-                        textAlign = TextAlign.Center,
-                        modifier = Modifier.align(Alignment.Center)
+                    Text("COMENCEMOS",
+                        color = Color.White,
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Bold,
+                        textAlign = TextAlign.Center ,
+                        modifier = Modifier.padding(3.dp)
                     )
                 }
             }
         }
 
 
-        Spacer(modifier = Modifier.height(16.dp))
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.Center
-        ) {
-            Button(
-                onClick = {onClick("FourScreen")},
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF8E66B8) ),
-                modifier = Modifier
-                    .width(300.dp)
-                    .height(50.dp),
-                shape = RoundedCornerShape(30.dp) // Esquinas redondeadas a 8.dp
-            ) {
-                Text("COMENCEMOS",
-                    color = Color.White,
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.Bold,
-                    textAlign = TextAlign.Center ,
-                    modifier = Modifier.padding(3.dp)
-                )
-            }
-        }
+
+
 
     }
 
@@ -123,10 +131,15 @@ data class Item(val nombre: String)
 val listaDeItems = listOf(
     Item("Ansiedad"),
     Item("Depresión"),
-    Item("Relaciones"),
+    Item("Amor"),
     Item("Soledad"),
     Item("Traumas"),
     Item("Embarazo"),
+    Item("Tristeza"),
+    Item("Tristeza"),
+    Item("Tristeza"),
+    Item("Tristeza"),
+    Item("Tristeza"),
     Item("Tristeza"),
     Item("Sueño")
 )

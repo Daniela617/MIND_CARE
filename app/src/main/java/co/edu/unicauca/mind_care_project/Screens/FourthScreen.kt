@@ -1,6 +1,7 @@
 package co.edu.unicauca.mind_care_project.Screens
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -25,13 +26,20 @@ import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -41,6 +49,7 @@ import androidx.compose.ui.unit.sp
 import co.edu.unicauca.mind_care_project.R
 import co.edu.unicauca.mind_care_project.UserInfo
 import co.edu.unicauca.mind_care_project.UsersMessages
+import kotlin.random.Random
 
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -49,7 +58,10 @@ fun FourScreen(onClick: (String) -> Unit){
     val gradiente = Brush.verticalGradient(
         colors = listOf(Color(0xFF8E66B8), Color(0xFF0B5884))
     )
-    val Purple = Color(0xFF9C27B0)
+    var publication by remember { mutableStateOf("") }
+    val onTextChange: (String) -> Unit = { newText ->
+        publication = newText
+    }
     val userInfoList = UsersMessages.getUserInfo()
     Scaffold(
         bottomBar = {
@@ -76,11 +88,7 @@ fun FourScreen(onClick: (String) -> Unit){
                             label = "Terapia",
                             onClick = { /* TODO" */ }
                         )
-                        BottomAppBarItem(
-                            iconId = R.drawable.sosvec,
-                            label = "SOS",
-                            onClick = { /*TODO */ }
-                        )
+
                     }
                 }
             )
@@ -147,13 +155,24 @@ fun FourScreen(onClick: (String) -> Unit){
                             .border(1.5.dp, MaterialTheme.colorScheme.inversePrimary, CircleShape)
                     )
                     Spacer(modifier = Modifier.width(8.dp))
-                    Text(
-                        text = "¿En qué estás pensando?",
-                        color = Color.White,
-                        fontSize = 25.sp,
-                        fontFamily = FontFamily(Font(R.font.nunito_variable_font_wght)),
-                        textAlign = TextAlign.Center
+                    TextField(
+                        value = publication,
+                        onValueChange = onTextChange,
+                        colors = TextFieldDefaults.colors(
+
+                            unfocusedIndicatorColor = Color.Transparent, // Oculta el indicador cuando no está enfocado
+                            focusedIndicatorColor = Color.Transparent, // Oculta el indicador cuando está enfocado
+                            unfocusedContainerColor = Color.White, // Color del contenedor cuando no está enfocado
+                            focusedContainerColor = Color.White
+                        ),
+                        placeholder = {
+                            Text(stringResource(R.string.publication_placeholder), color = Color.Gray)
+                        },
+                        modifier = Modifier
+                            .size(width = 250.dp, height = 60.dp),
+                        shape = RoundedCornerShape(40.dp),
                     )
+
                 }
                 Row(modifier = Modifier.padding(all = 8.dp)) {
                     Box(
@@ -173,16 +192,24 @@ fun FourScreen(onClick: (String) -> Unit){
     }
     }
 }
+
+val iconMap = mapOf(
+    2 to R.drawable.avatar2,
+    3 to R.drawable.avatar3,
+    4 to R.drawable.avatar4
+)
 @Composable
 fun AvatarRow(userInfo: UserInfo) {
     val Purple = Color(0xFF9C27B0)
+    val randomNumber = Random.nextInt(2, 5)
+    val imageId = iconMap[randomNumber] ?: R.drawable.avatar2
 
     Row(
         modifier = Modifier.padding(all = 10.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Image(
-            painter = painterResource(userInfo.imageId),
+            painter = painterResource(imageId),
             contentDescription = "Avatar",
             modifier = Modifier
                 .size(50.dp)
@@ -232,6 +259,7 @@ fun AvatarRow(userInfo: UserInfo) {
 
     }
 }
+
 @Composable
 fun MultipleAvatars(userInfoList: List<UserInfo>) {
     LazyColumn {

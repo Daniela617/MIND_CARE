@@ -1,16 +1,12 @@
 package co.edu.unicauca.mind_care_project
-
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-
 import co.edu.unicauca.mind_care_project.Navigation.Navigation
 import co.edu.unicauca.mind_care_project.ui.theme.Mind_care_projectTheme
 import co.edu.unicauca.mind_care_project.Screens.FirstScreen
@@ -25,7 +21,6 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             Mind_care_projectTheme {
-                // A surface container using the 'background' color from the theme
                 App()
             }
         }
@@ -51,7 +46,6 @@ fun App() {
                 destination ->
             Navigation.navigateToScreen(navController, destination)
         } }
-
         composable("fourScreen") { FourScreen{
                 destination ->
             Navigation.navigateToScreen(navController, destination)
@@ -73,6 +67,7 @@ fun App() {
 fun ThirdScreenPreview() {
     thirdScreen {}
 }
+
 
 
 
