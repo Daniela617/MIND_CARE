@@ -1,4 +1,4 @@
-package co.edu.unicauca.mind_care_project.room_database
+package co.edu.unicauca.mind_care_project.room_database.dao
 
 import androidx.room.Delete
 import androidx.room.Insert
@@ -7,6 +7,8 @@ import androidx.room.Query
 import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
 import androidx.room.Dao
+import co.edu.unicauca.mind_care_project.room_database.entities.Preferences
+
 @Dao
 interface PreferencesDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
