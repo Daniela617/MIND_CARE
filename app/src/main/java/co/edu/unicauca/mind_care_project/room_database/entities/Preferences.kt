@@ -4,6 +4,6 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "preferences")
 data class Preferences (
     @PrimaryKey(autoGenerate = true)
-    val id:Int = 0 ,
+    val preferenceId:Int = 0 ,
     val item: String = ""
 )

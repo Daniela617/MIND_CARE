@@ -27,6 +27,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -43,9 +44,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import co.edu.unicauca.mind_care_project.R
+import co.edu.unicauca.mind_care_project.Users.UserDetails
+import co.edu.unicauca.mind_care_project.Users.UserEntryViewModel
+import co.edu.unicauca.mind_care_project.room_database.entities.User
+import co.edu.unicauca.mind_care_project.room_database.repository.UserRepository
+import kotlinx.coroutines.launch
 
 @Composable
-fun SecondScreen(onClick: (String) -> Unit) {
+fun SecondScreen(onClick: (String) -> Unit,userRepository: UserRepository, viewModel: UserEntryViewModel) {
     val gradiente = Brush.verticalGradient(
         colors = listOf(Color(0xFF8E66B8), Color(0xFF0B5884))
     )
@@ -152,7 +158,7 @@ fun SecondScreen(onClick: (String) -> Unit) {
                             shape = RoundedCornerShape(40.dp),
                         )
 
-                        BotonEjemplo(onClick = onClick)
+                        BotonEjemplo(onClick = onClick, userRepository = userRepository, username = username, viewModel = viewModel)
                         Log.d("NombreUsuario", "El nombre de usuario es: $username")
                     }
 
@@ -169,9 +175,19 @@ fun SecondScreen(onClick: (String) -> Unit) {
 @Composable
 fun BotonEjemplo(
     onClick: (String) -> Unit,
+    userRepository: UserRepository,
+    username: String,
+    viewModel: UserEntryViewModel
 ){
-    Button(onClick = { onClick("thirdScreen") },
+    val coroutineScope = rememberCoroutineScope()
+    Button(onClick = {
+        coroutineScope.launch {
+            viewModel.updateUiState(UserDetails(username = username))
+            viewModel.saveUser()
+            onClick("thirdScreen")
+        }
 
+    },
         shape = CircleShape,
         modifier = Modifier,
         colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF8E66B8)))
@@ -186,9 +202,3 @@ fun BotonEjemplo(
     }
 }
 
-@Preview
-@Composable
-fun BotonEjemploPreview(){
-    BotonEjemplo {}
-
-}

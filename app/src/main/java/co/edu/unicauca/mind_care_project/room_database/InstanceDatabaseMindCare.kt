@@ -3,6 +3,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import co.edu.unicauca.mind_care_project.room_database.dao.PostDao
 import co.edu.unicauca.mind_care_project.room_database.dao.PreferencesDao
 import co.edu.unicauca.mind_care_project.room_database.dao.UserDao
 import co.edu.unicauca.mind_care_project.room_database.entities.Preferences
@@ -12,6 +13,7 @@ import co.edu.unicauca.mind_care_project.room_database.entities.User
 abstract class InstanceDatabaseMindCare : RoomDatabase() {
     abstract fun userDao(): UserDao
     abstract fun preferencesDao(): PreferencesDao
+    abstract fun postDao():PostDao
 
     companion object{
         @Volatile

@@ -8,8 +8,8 @@ import co.edu.unicauca.mind_care_project.room_database.entities.User
 data class UserWithPost(
     @Embedded val user: User,
     @Relation(
-        parentColumn = "id",
-        entityColumn = "id"
+        parentColumn = "postId",
+        entityColumn = "userId"
     )
     val posts: List<Post>
 )

@@ -17,7 +17,7 @@ interface PreferencesDao {
     suspend fun update(preferences: Preferences)
     @Delete
     suspend fun delete(preferences: Preferences)
-    @Query("SELECT * from preferences WHERE id= :id")
+    @Query("SELECT * from preferences WHERE preferenceId= :id")
     fun getPreference(id:Int):Flow<Preferences>
     @Query("SELECT * from preferences ORDER BY item  ASC")
     fun getPreferencesList():Flow<List<Preferences>>
