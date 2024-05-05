@@ -44,14 +44,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import co.edu.unicauca.mind_care_project.R
-import co.edu.unicauca.mind_care_project.Users.UserDetails
-import co.edu.unicauca.mind_care_project.Users.UserEntryViewModel
-import co.edu.unicauca.mind_care_project.room_database.entities.User
-import co.edu.unicauca.mind_care_project.room_database.repository.UserRepository
+
 import kotlinx.coroutines.launch
 
 @Composable
-fun SecondScreen(onClick: (String) -> Unit,userRepository: UserRepository, viewModel: UserEntryViewModel) {
+fun SecondScreen(onClick: (String) -> Unit) {
     val gradiente = Brush.verticalGradient(
         colors = listOf(Color(0xFF8E66B8), Color(0xFF0B5884))
     )
@@ -158,7 +155,7 @@ fun SecondScreen(onClick: (String) -> Unit,userRepository: UserRepository, viewM
                             shape = RoundedCornerShape(40.dp),
                         )
 
-                        BotonEjemplo(onClick = onClick, userRepository = userRepository, username = username, viewModel = viewModel)
+                        BotonEjemplo(onClick = onClick, username = username)
                         Log.d("NombreUsuario", "El nombre de usuario es: $username")
                     }
 
@@ -175,15 +172,13 @@ fun SecondScreen(onClick: (String) -> Unit,userRepository: UserRepository, viewM
 @Composable
 fun BotonEjemplo(
     onClick: (String) -> Unit,
-    userRepository: UserRepository,
-    username: String,
-    viewModel: UserEntryViewModel
+
+    username: String
 ){
     val coroutineScope = rememberCoroutineScope()
     Button(onClick = {
         coroutineScope.launch {
-            viewModel.updateUiState(UserDetails(username = username))
-            viewModel.saveUser()
+
             onClick("thirdScreen")
         }
 
