@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "989791186514",
+    "project_id": "mind-care-project2",
+    "storage_bucket": "mind-care-project2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:989791186514:android:15bc15ce74878c0badf98b",
+        "android_client_info": {
+          "package_name": "co.edu.unicauca.mind_care_project"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCnh6Bf_grKHpTbSABNbpOjGqevxXr5iYA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

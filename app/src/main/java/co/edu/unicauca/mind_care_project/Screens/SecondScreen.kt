@@ -40,15 +40,18 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import co.edu.unicauca.mind_care_project.R
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 
 import kotlinx.coroutines.launch
+import java.util.UUID
 
 @Composable
 fun SecondScreen(onClick: (String) -> Unit) {
+
     val gradiente = Brush.verticalGradient(
         colors = listOf(Color(0xFF8E66B8), Color(0xFF0B5884))
     )
@@ -175,12 +178,21 @@ fun BotonEjemplo(
 
     username: String
 ){
+    val db = Firebase.database
+    val refDb =db.getReference()
+    val id = UUID.randomUUID().toString()
+
     val coroutineScope = rememberCoroutineScope()
     Button(onClick = {
+        val usersRef = db.reference.child("Users")
+        val userRef = usersRef.child(id)
+        val user = User(username)
+        userRef.setValue(user)
         coroutineScope.launch {
 
             onClick("thirdScreen")
         }
+
 
     },
         shape = CircleShape,
@@ -197,3 +209,4 @@ fun BotonEjemplo(
     }
 }
 
+data class User( val username: String)
