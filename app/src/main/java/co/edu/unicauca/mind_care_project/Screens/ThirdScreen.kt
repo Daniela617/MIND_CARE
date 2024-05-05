@@ -28,6 +28,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.google.firebase.Firebase
+import com.google.firebase.database.database
+import java.util.UUID
 
 @Composable
 fun thirdScreen(onClick: (String) -> Unit) {
@@ -35,6 +38,9 @@ fun thirdScreen(onClick: (String) -> Unit) {
         colors = listOf(Color(0xFF8E66B8), Color(0xFF0B5884))
     )
     val selectedItems = remember { mutableStateListOf<Item>() }
+    val db = Firebase.database // Initialize Firebase Database instance
+    val refDb = db.getReference()
+    val id = "refDb"+ UUID.randomUUID().toString()
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -102,7 +108,22 @@ fun thirdScreen(onClick: (String) -> Unit) {
                 horizontalArrangement = Arrangement.Center
             ) {
                 Button(
-                    onClick = {onClick("FourScreen")},
+
+                    onClick = {
+                        // Add selected items to Firebase
+                        val selectedItemsList = selectedItems.map { it.nombre } // Extract names
+                        val userRef = refDb.child("Items").child(id) // Replace "userId" with actual user ID
+                        userRef.child("selectedItems").setValue(selectedItemsList)
+                            .addOnSuccessListener {
+                                // Handle success (optional)
+                                println("Selected items saved to Firebase successfully!")
+                            }
+                            .addOnFailureListener { exception ->
+                                // Handle failure (optional)
+                                println("Error saving selected items to Firebase: $exception")
+                            }
+                        onClick("FourScreen") // Proceed to next screen
+                    },
                     colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF8E66B8) ),
                     modifier = Modifier
                         .width(300.dp)
