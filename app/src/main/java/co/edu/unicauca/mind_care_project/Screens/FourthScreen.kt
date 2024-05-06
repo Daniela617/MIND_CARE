@@ -49,6 +49,11 @@ import androidx.compose.ui.unit.sp
 import co.edu.unicauca.mind_care_project.R
 import co.edu.unicauca.mind_care_project.UserInfo
 import co.edu.unicauca.mind_care_project.UsersMessages
+import com.google.firebase.Firebase
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.database
+import java.util.UUID
 import kotlin.random.Random
 
 
@@ -58,11 +63,18 @@ fun FourScreen(onClick: (String) -> Unit){
     val gradiente = Brush.verticalGradient(
         colors = listOf(Color(0xFF8E66B8), Color(0xFF0B5884))
     )
+    val db = Firebase.database // Inicializo instancia de fireBase
+    val refDb = db.getReference()
+    val id = "refDb"+ UUID.randomUUID().toString()
     var publication by remember { mutableStateOf("") }
     val onTextChange: (String) -> Unit = { newText ->
         publication = newText
     }
+    //cargo los datos de los mensajes en firebase
     val userInfoList = UsersMessages.getUserInfo()
+    val messageRef = refDb.child("Messages").child(id)
+    messageRef.child("MessagesUser").setValue(userInfoList)
+
     Scaffold(
         bottomBar = {
 
@@ -81,12 +93,12 @@ fun FourScreen(onClick: (String) -> Unit){
                         BottomAppBarItem(
                             iconId = R.drawable.streamline_health_care_2,
                             label = "Cuidados",
-                            onClick = { /* TODO" */ }
+                            onClick = { }
                         )
                         BottomAppBarItem(
                             iconId = R.drawable.terapiavec,
                             label = "Terapia",
-                            onClick = { /* TODO" */ }
+                            onClick = {}
                         )
 
                     }

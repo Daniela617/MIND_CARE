@@ -1,4 +1,5 @@
 package co.edu.unicauca.mind_care_project
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -31,6 +32,7 @@ import androidx.compose.ui.unit.sp
 import com.google.firebase.Firebase
 import com.google.firebase.database.database
 import java.util.UUID
+import co.edu.unicauca.mind_care_project.singleton.IdManager
 
 @Composable
 fun thirdScreen(onClick: (String) -> Unit) {
@@ -111,15 +113,17 @@ fun thirdScreen(onClick: (String) -> Unit) {
 
                     onClick = {
                         // Add selected items to Firebase
-                        val selectedItemsList = selectedItems.map { it.nombre } // Extract names
-                        val userRef = refDb.child("Items").child(id) // Replace "userId" with actual user ID
+                        val selectedItemsList = selectedItems.map { it.nombre }
+                        val userRef = refDb.child("Items").child(id)
                         userRef.child("selectedItems").setValue(selectedItemsList)
+                        val idRecibido = IdManager.getAssignId()
+                        Log.d("usuario", "El id de usuario es: $idRecibido")
+                        userRef.child("idUser").setValue(idRecibido)
                             .addOnSuccessListener {
-                                // Handle success (optional)
+
                                 println("Selected items saved to Firebase successfully!")
                             }
                             .addOnFailureListener { exception ->
-                                // Handle failure (optional)
                                 println("Error saving selected items to Firebase: $exception")
                             }
                         onClick("FourScreen") // Proceed to next screen
@@ -157,11 +161,6 @@ val listaDeItems = listOf(
     Item("Soledad"),
     Item("Traumas"),
     Item("Embarazo"),
-    Item("Tristeza"),
-    Item("Tristeza"),
-    Item("Tristeza"),
-    Item("Tristeza"),
-    Item("Tristeza"),
     Item("Tristeza"),
     Item("Sueño")
 )

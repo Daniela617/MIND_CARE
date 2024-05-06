@@ -45,7 +45,7 @@ import androidx.compose.ui.unit.sp
 import co.edu.unicauca.mind_care_project.R
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-
+import co.edu.unicauca.mind_care_project.singleton.IdManager
 import kotlinx.coroutines.launch
 import java.util.UUID
 
@@ -181,7 +181,9 @@ fun BotonEjemplo(
     val db = Firebase.database
     val refDb =db.getReference()
     val id = UUID.randomUUID().toString()
-
+    Log.d("usuario", "El nombre de usuario es: $id")
+    IdManager.assignId(id)
+    IdManager.assignName(username)
     val coroutineScope = rememberCoroutineScope()
     Button(onClick = {
         val usersRef = db.reference.child("Users")
